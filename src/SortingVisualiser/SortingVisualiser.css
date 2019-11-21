@@ -1,0 +1,14 @@
+.array-container {
+  position: relative;
+  border: 0px solid green;
+  display: inline-block;
+  margin: auto;
+  padding-bottom: 20px;
+} /*From: https://www.w3schools.com/howto/howto_css_center-vertical.asp*/
+
+.array-bar{
+    width: 3px;
+    background-color: darkslategray;
+    display: inline-block;
+    margin: 0 1px;
+}
