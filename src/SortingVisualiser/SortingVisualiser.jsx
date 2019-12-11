@@ -1,6 +1,18 @@
 import React from 'react';
 import './SortingVisualiser.css';
 
+// Change this value for the speed of the animations.
+const ANIMATION_SPEED_MS = 1;
+
+// Change this value for the number of bars (value) in the array.
+const NUMBER_OF_ARRAY_BARS = 310;
+
+// This is the main color of the array bars.
+const PRIMARY_COLOR = 'turquoise';
+
+// This is the color of array bars that are being compared throughout the animations.
+const SECONDARY_COLOR = 'red';
+
 export class SortingVisualiser extends React.Component {
     constructor(props){
         super(props);
@@ -23,7 +35,13 @@ export class SortingVisualiser extends React.Component {
     }
 
     mergeSort(){
-
+        //slow it down using thread sleep
+        const arrayBars = document.getElementsByClassName('array-bar');
+        for (let i = 0; i < arrayBars.length; i++){
+            setTimeout(() => {
+                this.resetArray()
+            },100);
+        }
     }
 
     quickSort(){
@@ -66,3 +84,4 @@ function randomIntFromInterval(min, max){
     // from https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
