@@ -1,15 +1,13 @@
 import React from 'react';
+import {getMergeSortAnimations} from '../SortingAlgorithim/SortingAlgorithims.js';
 import './SortingVisualiser.css';
 
 // Change this value for the speed of the animations.
 const ANIMATION_SPEED_MS = 1;
-
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 310;
-
+const NUMBER_OF_ARRAY_BARS = 250;
 // This is the main color of the array bars.
-const PRIMARY_COLOR = 'turquoise';
-
+const PRIMARY_COLOR = 'darkslategray';
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
 
@@ -18,7 +16,7 @@ export class SortingVisualiser extends React.Component {
         super(props);
 
         this.state = {
-            array: []
+            array: [],
         };
     }
 
@@ -28,22 +26,45 @@ export class SortingVisualiser extends React.Component {
     
     resetArray(){
         const array = [];
-        for(let i = 0; i < 250; i++){
+        for(let i = 0; i < NUMBER_OF_ARRAY_BARS; i++){
             array.push(randomIntFromInterval(5,1000)); // Starting from 5 so we can see the bar on the screen
         }
         this.setState({array}); // Reset to have this array
     }
 
+    // Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves
     mergeSort(){
-        //slow it down using thread sleep
-        const arrayBars = document.getElementsByClassName('array-bar');
-        for (let i = 0; i < arrayBars.length; i++){
-            setTimeout(() => {
-                this.resetArray()
-            },100);
-        }
+        let animations = [];
+        animations = getMergeSortAnimations(this.state.array, animations);
+        this.animate(animations)
     }
 
+    animate(animations){
+        for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName("array-bar");
+
+            const isColorChange = i % 3 !== 2;
+            if (isColorChange) {
+              const [barOneIdx, barTwoIdx] = animations[i];
+              console.log(barOneIdx);
+              console.log(barTwoIdx);
+              const barOneStyle = arrayBars[barOneIdx].style;
+              const barTwoStyle = arrayBars[barTwoIdx].style;
+              const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+              setTimeout(() => {
+                barOneStyle.backgroundColor = color;
+                barTwoStyle.backgroundColor = color;
+              }, i * ANIMATION_SPEED_MS);
+            } else {
+              setTimeout(() => {
+                const [barOneIdx, newHeight] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                barOneStyle.height = `${newHeight/1.5}px`;
+              }, i * ANIMATION_SPEED_MS);
+            }
+          }
+    }
+    
     quickSort(){
         
     }
@@ -58,13 +79,18 @@ export class SortingVisualiser extends React.Component {
 
     render(){
         const array = this.state.array;
+
         return (
             <div class="array-container">
                 {array.map((value, index) => (
-                    <div 
-                        class="array-bar" 
+                    <div
+                        className="array-bar"
                         key={index}
-                        style={{height: `${(value/1.5)}px`}}></div> // adujsting hight to fit screen
+                        style={{
+                        backgroundColor: PRIMARY_COLOR,
+                        height: `${value/1.5}px`,
+                        }}>
+                        </div>
                 ))}
                 
                 <div>
