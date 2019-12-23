@@ -1,5 +1,6 @@
 import React from 'react';
 import {getMergeSortAnimations} from '../SortingAlgorithim/MergeSort.js';
+import {getQuickSortAnimations} from '../SortingAlgorithim/QuickSort.js';
 import './SortingVisualiser.css';
 
 // Change this value for the speed of the animations.
@@ -32,20 +33,14 @@ export class SortingVisualiser extends React.Component {
         this.setState({array}); // Reset to have this array
     }
 
-    // Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves
-    mergeSort(){
-        let animations = [];
-        animations = getMergeSortAnimations(this.state.array, animations);
-        this.animate(animations)
-    }
-
     animate(animations){
         for (let i = 0; i < animations.length; i++) {
             const arrayBars = document.getElementsByClassName("array-bar");
 
-            const isColorChange = i % 3 !== 2;
-            if (isColorChange) {
-              const [barOneIdx, barTwoIdx] = animations[i];
+            let isColorChange = i % 3 !== 2;
+            isColorChange = animations[i][2];
+            if (!isColorChange) {
+              const [barOneIdx, barTwoIdx, move] = animations[i];
               console.log(barOneIdx);
               console.log(barTwoIdx);
               const barOneStyle = arrayBars[barOneIdx].style;
@@ -57,7 +52,7 @@ export class SortingVisualiser extends React.Component {
               }, i * ANIMATION_SPEED_MS);
             } else {
               setTimeout(() => {
-                const [barOneIdx, newHeight] = animations[i];
+                const [barOneIdx, newHeight, move] = animations[i];
                 const barOneStyle = arrayBars[barOneIdx].style;
                 barOneStyle.height = `${newHeight/1.5}px`;
               }, i * ANIMATION_SPEED_MS);
@@ -65,8 +60,17 @@ export class SortingVisualiser extends React.Component {
           }
     }
 
+    // Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves
+    mergeSort(){
+        let animations = [];
+        animations = getMergeSortAnimations(this.state.array, animations);
+        this.animate(animations)
+    }
+
     quickSort(){
-        
+        let animations = [];
+        animations = getQuickSortAnimations(this.state.array, animations);
+        this.animate(animations)
     }
 
     heapSort(){
