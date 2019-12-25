@@ -48,9 +48,6 @@ export function getQuickSortAnimations(array, animations) {
                 arr[i] = arr[j];
                 arr[j] = temp;
 
-                //animation.push([i, j]);
-                //animation.push([i, i]);
-
                 animation.push([i, i, true]);
                 animation.push([i, i, true]);
 

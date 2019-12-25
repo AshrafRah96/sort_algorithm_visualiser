@@ -34,14 +34,13 @@ export class SortingVisualiser extends React.Component {
     }
 
     animate(animations){
+    const arrayBars = document.getElementsByClassName("array-bar");
         for (let i = 0; i < animations.length; i++) {
-            const arrayBars = document.getElementsByClassName("array-bar");
+            
 
             let isColorChange = animations[i][2];
             if (isColorChange) {
               const [barOneIdx, barTwoIdx, move] = animations[i];
-              console.log(barOneIdx);
-              console.log(barTwoIdx);
               const barOneStyle = arrayBars[barOneIdx].style;
               const barTwoStyle = arrayBars[barTwoIdx].style;
               const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
@@ -94,17 +93,29 @@ export class SortingVisualiser extends React.Component {
                 
                 <div>
                 <button onClick={() => this.resetArray()}>New Array</button>
-                <button onClick={() => this.mergeSort()}>Merge Sort</button>
+                <button onClick={() => {
+                    this.mergeSort(); 
+                    mergeClick();
+                }}>Merge Sort</button>
                 <button onClick={() => this.quickSort()}>Quick Sort</button>
                 <button onClick={() => this.heapSort()}>Heap Sort</button>
                 <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                </div>
+                
+                <div class="algo-infomation" id="info">
+                <h1 id="title"></h1>
+                <h2 id="description"></h2>
                 </div>
                 
             </div>
         );
     }
 }
-
+function mergeClick() {
+    //var parent = document.querySelector("info");
+    //var title = parent.querySelector("title");
+    //title.innerHTML = "Swapped text!";
+  }
 function randomIntFromInterval(min, max){
     // from https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
     return Math.floor(Math.random() * (max - min + 1) + min)

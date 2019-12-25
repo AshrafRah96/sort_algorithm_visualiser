@@ -11,3 +11,11 @@
     display: inline-block;
     margin: 0 1px;
 }
+
+.algo-infomation{
+    position: relative;
+    border: 0px solid green;
+    display: inline-block;
+    margin: auto;
+    color: black;
+}
