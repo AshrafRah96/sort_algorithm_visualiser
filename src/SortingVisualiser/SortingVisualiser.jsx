@@ -37,9 +37,8 @@ export class SortingVisualiser extends React.Component {
         for (let i = 0; i < animations.length; i++) {
             const arrayBars = document.getElementsByClassName("array-bar");
 
-            let isColorChange = i % 3 !== 2;
-            isColorChange = animations[i][2];
-            if (!isColorChange) {
+            let isColorChange = animations[i][2];
+            if (isColorChange) {
               const [barOneIdx, barTwoIdx, move] = animations[i];
               console.log(barOneIdx);
               console.log(barTwoIdx);
@@ -62,15 +61,11 @@ export class SortingVisualiser extends React.Component {
 
     // Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves
     mergeSort(){
-        let animations = [];
-        animations = getMergeSortAnimations(this.state.array, animations);
-        this.animate(animations)
+        this.animate(getMergeSortAnimations(this.state.array, []));
     }
 
     quickSort(){
-        let animations = [];
-        animations = getQuickSortAnimations(this.state.array, animations);
-        this.animate(animations)
+        this.animate(getQuickSortAnimations(this.state.array, []));
     }
 
     heapSort(){
@@ -106,7 +101,7 @@ export class SortingVisualiser extends React.Component {
                 </div>
                 
             </div>
-        )
+        );
     }
 }
 

@@ -28,20 +28,20 @@ function doMerge(mainArray, leftArray, rightArray, animations) {
   while (i < leftArray.length && j < rightArray.length) {
     // These are the values that we're comparing; we push them once
     // to change their color.
-    animations.push([i, j, false]);
+    animations.push([i, j, true]);
     // These are the values that we're comparing; we push them a second
     // time to revert their color.
-    animations.push([i, j, false]);
+    animations.push([i, j, true]);
     if (leftArray[i] <= rightArray[j]) {
       // We overwrite the value at index k in the original array with the
       // value at index i in the left array.
-      animations.push([k, leftArray[i], true]);
+      animations.push([k, leftArray[i], false]);
       mainArray[k] = leftArray[i];
       i++;
     } else {
       // We overwrite the value at index k in the original array with the
       // value at index j in the right array.
-      animations.push([k, rightArray[j], true]);
+      animations.push([k, rightArray[j], false]);
       mainArray[k] = rightArray[j];
       j++;
     }
@@ -50,25 +50,25 @@ function doMerge(mainArray, leftArray, rightArray, animations) {
   while (i < leftArray.length) {
     // These are the values that we're comparing; we push them once
     // to change their color.
-    animations.push([i, i, false]);
+    animations.push([i, i, true]);
     // These are the values that we're comparing; we push them a second
     // time to revert their color.
-    animations.push([i, i, false]);
+    animations.push([i, i, true]);
     // We overwrite the value at index k in the original array with the
     // value at index i in the leftArray array.
-    animations.push([k, leftArray[i], true]);
+    animations.push([k, leftArray[i], false]);
     mainArray[k++] = leftArray[i++];
   }
   while (j < rightArray.length) {
     // These are the values that we're comparing; we push them once
     // to change their color.
-    animations.push([j, j, false]);
+    animations.push([j, j, true]);
     // These are the values that we're comparing; we push them a second
     // time to revert their color.
-    animations.push([j, j, false]);
+    animations.push([j, j, true]);
     // We overwrite the value at index k in the original array with the
     // value at index j in the rightArray array.
-    animations.push([k, rightArray[j], true]);
+    animations.push([k, rightArray[j], false]);
     mainArray[k++] = rightArray[j++];
   }
 }

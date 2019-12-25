@@ -2,9 +2,7 @@ export function getQuickSortAnimations(array, animations) {
   
     if (array.length <= 1) return array;
     
-    //array = [9, 2, 5, 6, 4, 3, 7, 10, 1, 12, 8, 11];
-     
-    array = quickSort(array, 0, array.length - 1, animations);
+    quickSort(array, 0, array.length - 1, animations);
   
     return animations;
   }
@@ -19,7 +17,6 @@ export function getQuickSortAnimations(array, animations) {
             quickSort(arr, low, pi - 1, animation);  // Before pi
             quickSort(arr, pi + 1, high, animation); // After pi
         }
-        return arr;
     }
 
     /* This function takes last element as pivot, places
@@ -35,10 +32,10 @@ export function getQuickSortAnimations(array, animations) {
     
         let i = (low - 1)  // Index of smaller element
 
-        animation.push([low, high, false]);
-        animation.push([low, high, false]);
+        animation.push([low, high, true]);
+        animation.push([low, high, true]);
 
-        animation.push([low, pivot, true]);
+        animation.push([low, pivot, false]);
 
         for (let j = low; j <= high - 1; j++)
         {
@@ -54,15 +51,15 @@ export function getQuickSortAnimations(array, animations) {
                 //animation.push([i, j]);
                 //animation.push([i, i]);
 
-                animation.push([i, i, false]);
-                animation.push([i, i, false]);
+                animation.push([i, i, true]);
+                animation.push([i, i, true]);
 
-                animation.push([i, arr[i], true]);
+                animation.push([i, arr[i], false]);
 
-                animation.push([j, i, false]);
-                animation.push([j, i, false]);
+                animation.push([j, i, true]);
+                animation.push([j, i, true]);
 
-                animation.push([j, arr[i], true]);
+                animation.push([j, arr[i], false]);
             }
         }
 
@@ -71,15 +68,15 @@ export function getQuickSortAnimations(array, animations) {
         arr[i] = arr[high]; 
         arr[high] = temp;
 
-        animation.push([high, i, false]);
-        animation.push([high, i, false]);
+        animation.push([high, i, true]);
+        animation.push([high, i, true]);
 
-        animation.push([high, arr[i], true]);
+        animation.push([high, arr[i], false]);
 
-        animation.push([i, i, false]);
-        animation.push([i, i, false]);
+        animation.push([i, i, true]);
+        animation.push([i, i, true]);
 
-        animation.push([i, arr[i], true]);
+        animation.push([i, arr[i], false]);
 
         return i;
     }
