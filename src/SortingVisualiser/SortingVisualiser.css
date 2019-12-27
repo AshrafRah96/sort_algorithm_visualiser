@@ -1,21 +1,39 @@
 .array-container {
   position: relative;
-  border: 0px solid green;
+  border: 0px solid;
   display: inline-block;
   margin: auto;
+  background-color: #F1EDEE;
 } /*From: https://www.w3schools.com/howto/howto_css_center-vertical.asp*/
 
 .array-bar{
     width: 3px;
-    background-color: darkslategray;
     display: inline-block;
     margin: 0 1px;
 }
 
+.button {
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #3D5467; 
+  color: #F1EDEE; /*font colour*/
+}
+/*From: https://www.w3schools.com/css/css3_buttons.asp*/
+
 .algo-infomation{
-    position: relative;
-    border: 0px solid green;
-    display: inline-block;
-    margin: auto;
-    color: black;
+  position: relative;
+  display: inline-block;
+  margin-left: 100px;
+  margin-right: 100px;
+  color: #3D5467;
 }

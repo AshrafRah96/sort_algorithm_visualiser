@@ -8,7 +8,7 @@ const ANIMATION_SPEED_MS = 1;
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 300;
 // This is the main color of the array bars.
-const PRIMARY_COLOR = 'darkslategray';
+const PRIMARY_COLOR = '#3D5467';
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = 'red';
 
@@ -92,32 +92,58 @@ export class SortingVisualiser extends React.Component {
                 ))}
                 
                 <div>
-                <button onClick={() => this.resetArray()}>New Array</button>
-                <button onClick={() => {
-                    this.mergeSort(); 
-                    mergeClick();
-                }}>Merge Sort</button>
-                <button onClick={() => this.quickSort()}>Quick Sort</button>
-                <button onClick={() => this.heapSort()}>Heap Sort</button>
-                <button onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                <button class="button" onClick={() => this.resetArray()}>New Array</button>
+                <button class="button" onClick={() => {
+                    this.mergeSort();
+                    updateInfomation(mergeSortInfomation());
+                    }}>Merge Sort</button>
+                <button class="button" onClick={() => {
+                    this.quickSort();
+                    updateInfomation(quickSortInfomation());
+                    }}>Quick Sort</button>
+                <button class="button" onClick={() => this.heapSort()}>Heap Sort</button>
+                <button class="button" onClick={() => this.bubbleSort()}>Bubble Sort</button>
                 </div>
                 
                 <div class="algo-infomation" id="info">
-                <h1 id="title"></h1>
-                <h2 id="description"></h2>
+                    <h1 class="title"></h1>
+                    <h3 class="description"></h3>
+                    <h3 class="complexitiy"></h3>
                 </div>
                 
             </div>
         );
     }
 }
-function mergeClick() {
-    //var parent = document.querySelector("info");
-    //var title = parent.querySelector("title");
-    //title.innerHTML = "Swapped text!";
-  }
-function randomIntFromInterval(min, max){
+
+  function randomIntFromInterval(min, max){
     // from https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
     return Math.floor(Math.random() * (max - min + 1) + min)
-}
+  }
 
+  function updateInfomation(info) {
+    document.querySelector(".title").innerHTML = info.Title;
+    document.querySelector(".description").innerHTML = info.Description;
+    document.querySelector(".complexitiy").innerHTML = info.Complexitiy;
+  }
+
+  function mergeSortInfomation(){
+      let dictionaryOfInfo = {};
+      dictionaryOfInfo.Title = "Merge Sort";
+      dictionaryOfInfo.Description = "Merge Sort is a Divide and Conquer algorithm. " 
+                        +"It divides the array in two halves, calls itself for the two halves (using recursion) and then merges the two sorted halves.";
+      dictionaryOfInfo.Complexitiy = "The complexity is: O(n Log n) "
+                        +"in all 3 cases (worst, average and best) as merge sort always divides the array into two halves and take linear time to merge two halves";
+    return dictionaryOfInfo;
+  }
+
+  function quickSortInfomation(){
+    let dictionaryOfInfo = {};
+    dictionaryOfInfo.Title = "Quick Sort";
+    dictionaryOfInfo.Description = "Quick Sort is a Divide and Conquer algorithm. " 
+                      +"Similar to merge sort, however it works by selecting a pivot (typically the first or last element in the array), "
+                      +"then places the element smaller than the pivot left and elements higher than the pivot to the right.";
+    dictionaryOfInfo.Complexitiy = "The complexity is: O(n Log n) "
+                      +", worst case being O(n^2) when the list is already sorted however this is very rare.";
+  return dictionaryOfInfo;
+}
