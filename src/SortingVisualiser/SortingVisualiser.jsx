@@ -1,6 +1,7 @@
 import React from 'react';
 import {getMergeSortAnimations} from '../SortingAlgorithim/MergeSort.js';
 import {getQuickSortAnimations} from '../SortingAlgorithim/QuickSort.js';
+import {getBubbleSortAnimations} from '../SortingAlgorithim/BubbleSort.js';
 import './SortingVisualiser.css';
 
 // Change this value for the speed of the animations.
@@ -67,11 +68,11 @@ export class SortingVisualiser extends React.Component {
         this.animate(getQuickSortAnimations(this.state.array, []));
     }
 
-    heapSort(){
-        
+    bubbleSort(){
+        this.animate(getBubbleSortAnimations(this.state.array, []));
     }
 
-    bubbleSort(){
+    heapSort(){
         
     }
 
@@ -93,16 +94,26 @@ export class SortingVisualiser extends React.Component {
                 
                 <div>
                 <button class="button" onClick={() => this.resetArray()}>New Array</button>
+                
                 <button class="button" onClick={() => {
                     this.mergeSort();
                     updateInfomation(mergeSortInfomation());
                     }}>Merge Sort</button>
+                
                 <button class="button" onClick={() => {
                     this.quickSort();
                     updateInfomation(quickSortInfomation());
                     }}>Quick Sort</button>
-                <button class="button" onClick={() => this.heapSort()}>Heap Sort</button>
-                <button class="button" onClick={() => this.bubbleSort()}>Bubble Sort</button>
+                
+                <button class="button" onClick={() => {
+                    this.bubbleSort();
+                    updateInfomation(bubbleSortInfomation());
+                    }}>Bubble Sort</button>
+
+                <button class="button" onClick={() => {
+                    this.heapSort();
+                    updateInfomation(heapSortInfomation());
+                    }}>Heap Sort</button>
                 </div>
                 
                 <div class="algo-infomation" id="info">
@@ -142,8 +153,26 @@ export class SortingVisualiser extends React.Component {
     dictionaryOfInfo.Title = "Quick Sort";
     dictionaryOfInfo.Description = "Quick Sort is a Divide and Conquer algorithm. " 
                       +"Similar to merge sort, however it works by selecting a pivot (typically the first or last element in the array), "
-                      +"then places the element smaller than the pivot left and elements higher than the pivot to the right.";
+                      +"then places the element smaller than the pivot left and elements higher than the pivot to the right. Sorting in-place before spliting rather than splitting and then sorting.";
     dictionaryOfInfo.Complexitiy = "The complexity is: O(n Log n) "
                       +", worst case being O(n^2) when the list is already sorted however this is very rare.";
-  return dictionaryOfInfo;
-}
+    return dictionaryOfInfo;
+  }
+
+  function bubbleSortInfomation(){
+    let dictionaryOfInfo = {};
+    dictionaryOfInfo.Title = "Bubble Sort";
+    dictionaryOfInfo.Description = "Bubble Sort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order.";
+    dictionaryOfInfo.Complexitiy = "The complexity is: O(n^2), Worst case occurs when array is reverse sorted."
+                      +" And Best case O(n) when the array is already sorted. ";
+    return dictionaryOfInfo;
+  }
+
+  function heapSortInfomation(){
+    let dictionaryOfInfo = {};
+    dictionaryOfInfo.Title = "Heap Sort";
+    dictionaryOfInfo.Description = "Under Development";
+    dictionaryOfInfo.Complexitiy = "The complexity is:  "
+                      +", ";
+    return dictionaryOfInfo;
+  }

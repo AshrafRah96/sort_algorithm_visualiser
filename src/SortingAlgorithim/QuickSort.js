@@ -56,7 +56,7 @@ export function getQuickSortAnimations(array, animations) {
                 animation.push([j, i, true]);
                 animation.push([j, i, true]);
 
-                animation.push([j, arr[i], false]);
+                animation.push([j, arr[j], false]);
             }
         }
 
@@ -65,15 +65,15 @@ export function getQuickSortAnimations(array, animations) {
         arr[i] = arr[high]; 
         arr[high] = temp;
 
-        animation.push([high, i, true]);
-        animation.push([high, i, true]);
-
-        animation.push([high, arr[i], false]);
-
         animation.push([i, i, true]);
         animation.push([i, i, true]);
 
         animation.push([i, arr[i], false]);
+
+        animation.push([high, i, true]);
+        animation.push([high, i, true]);
+
+        animation.push([high, arr[high], false]);
 
         return i;
     }
