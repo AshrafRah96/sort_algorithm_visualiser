@@ -10,12 +10,13 @@ export function getMergeSortAnimations(array, animations) {
 function mergeSortHelper(arr,animations,) {
   if (arr.length <= 1) return arr;
 
+  //segment array 
   const middle = Math.floor(arr.length / 2);
   const left = arr.slice(0, middle);
   const right = arr.slice(middle, arr.length);
 
-  mergeSortHelper(left, animations);
-  mergeSortHelper(right, animations);
+  mergeSortHelper(left, animations); // pass left array
+  mergeSortHelper(right, animations);// pass right array
 
   doMerge(arr, left, right, animations);
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {getMergeSortAnimations} from '../SortingAlgorithim/MergeSort.js';
 import {getQuickSortAnimations} from '../SortingAlgorithim/QuickSort.js';
 import {getBubbleSortAnimations} from '../SortingAlgorithim/BubbleSort.js';
+import {getHeapSortAnimations} from '../SortingAlgorithim/HeapSort.js';
 import './SortingVisualiser.css';
 
 // Change this value for the speed of the animations.
@@ -37,8 +38,6 @@ export class SortingVisualiser extends React.Component {
     animate(animations){
     const arrayBars = document.getElementsByClassName("array-bar");
         for (let i = 0; i < animations.length; i++) {
-            
-
             let isColorChange = animations[i][2];
             if (isColorChange) {
               const [barOneIdx, barTwoIdx, move] = animations[i];
@@ -73,7 +72,7 @@ export class SortingVisualiser extends React.Component {
     }
 
     heapSort(){
-        
+      this.animate(getHeapSortAnimations(this.state.array, []));
     }
 
     render(){
@@ -171,8 +170,10 @@ export class SortingVisualiser extends React.Component {
   function heapSortInfomation(){
     let dictionaryOfInfo = {};
     dictionaryOfInfo.Title = "Heap Sort";
-    dictionaryOfInfo.Description = "Under Development";
-    dictionaryOfInfo.Complexitiy = "The complexity is:  "
-                      +", ";
+    dictionaryOfInfo.Description = "Heap sort is a comparison based sorting technique based on Binary Heap data structure. "
+                      +"It is similar to selection sort where we first find the maximum element and place the maximum element at the end. We repeat the same process for remaining element. "
+                      +"Heap sort is an in-place algorithm.";
+    dictionaryOfInfo.Complexitiy = "The complexity is: O(n Log n) "
+                      +", the time complexity of heapify is O(Log n)";
     return dictionaryOfInfo;
   }

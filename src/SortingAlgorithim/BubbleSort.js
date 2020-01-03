@@ -13,6 +13,9 @@ export function getBubbleSortAnimations(array, animations) {
   function bubbleSort(arr, animation){
     if (arr.length <= 1){return arr;}
 
+    /*Loop through the array reducing its size after each (the largest will be moved to the right so we dont need to compare)
+        when the value is greater we swap */
+
     const n = arr.length; 
     for (let i = 0; i < n - 1; i++){
         for (let j = 0; j < n - i - 1; j++) {
