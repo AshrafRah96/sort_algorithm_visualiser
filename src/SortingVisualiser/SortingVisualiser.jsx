@@ -6,7 +6,7 @@ import {getHeapSortAnimations} from '../SortingAlgorithim/HeapSort.js';
 import './SortingVisualiser.css';
 
 // Change this value for the speed of the animations.
-const ANIMATION_SPEED_MS = 1;
+let ANIMATION_SPEED_MS = 1;
 // Change this value for the number of bars (value) in the array.
 const NUMBER_OF_ARRAY_BARS = 300;
 // This is the main color of the array bars.
@@ -92,6 +92,11 @@ export class SortingVisualiser extends React.Component {
                 ))}
                 
                 <div>
+                  Animation Speed: <input type="number" id="anispeed" min="0" max="10"/>
+                  <button class="button" onClick={() => GetValue()}>Set Speed</button>
+                </div>
+
+                <div>
                 <button class="button" onClick={() => this.resetArray()}>New Array</button>
                 
                 <button class="button" onClick={() => {
@@ -113,6 +118,8 @@ export class SortingVisualiser extends React.Component {
                     this.heapSort();
                     updateInfomation(heapSortInfomation());
                     }}>Heap Sort</button>
+
+                <button class="button-stop" onClick={() => window.location.reload()}>Stop Animation</button>
                 </div>
                 
                 <div class="algo-infomation" id="info">
@@ -176,4 +183,13 @@ export class SortingVisualiser extends React.Component {
     dictionaryOfInfo.Complexitiy = "The complexity is: O(n Log n) "
                       +", the time complexity of heapify is O(Log n)";
     return dictionaryOfInfo;
+  }
+  function GetValue(){
+    if (document.getElementById('anispeed').value == ""){
+      ANIMATION_SPEED_MS = 1;
+    }
+    else{
+      ANIMATION_SPEED_MS = Number(document.getElementById('anispeed').value);
+    }
+    alert("Animation will slow down by " + ANIMATION_SPEED_MS)
   }
