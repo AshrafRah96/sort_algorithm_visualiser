@@ -40,7 +40,7 @@ export function getHeapSortAnimations(array, animations) {
         largest = r; 
     }
     // If largest is not root 
-    if (largest != i) 
+    if (largest !== i) 
     { 
         Swap(arr, i, largest, animations); 
   

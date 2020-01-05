@@ -20,6 +20,7 @@ export class SortingVisualiser extends React.Component {
 
         this.state = {
             array: [],
+            disableButton: false,
         };
     }
 
@@ -36,26 +37,45 @@ export class SortingVisualiser extends React.Component {
     }
 
     animate(animations){
-    const arrayBars = document.getElementsByClassName("array-bar");
-        for (let i = 0; i < animations.length; i++) {
-            let isColorChange = animations[i][2];
-            if (isColorChange) {
-              const [barOneIdx, barTwoIdx, move] = animations[i];
+      this.enableDisable(0, ANIMATION_SPEED_MS);
+      const arrayBars = document.getElementsByClassName("array-bar");
+      for (let i = 0; i < animations.length; i++) {
+          let isColorChange = animations[i][2];
+          if (isColorChange) {
+            const [barOneIdx, barTwoIdx, move] = animations[i];
+            const barOneStyle = arrayBars[barOneIdx].style;
+            const barTwoStyle = arrayBars[barTwoIdx].style;
+            const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+            setTimeout(() => {
+              barOneStyle.backgroundColor = color;
+              barTwoStyle.backgroundColor = color;
+            }, i * ANIMATION_SPEED_MS);
+          } else {
+            setTimeout(() => {
+              const [barOneIdx, newHeight, move] = animations[i];
               const barOneStyle = arrayBars[barOneIdx].style;
-              const barTwoStyle = arrayBars[barTwoIdx].style;
-              const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
-              setTimeout(() => {
-                barOneStyle.backgroundColor = color;
-                barTwoStyle.backgroundColor = color;
-              }, i * ANIMATION_SPEED_MS);
-            } else {
-              setTimeout(() => {
-                const [barOneIdx, newHeight, move] = animations[i];
-                const barOneStyle = arrayBars[barOneIdx].style;
-                barOneStyle.height = `${newHeight/1.5}px`;
-              }, i * ANIMATION_SPEED_MS);
-            }
+              barOneStyle.height = `${newHeight/1.5}px`;
+            }, i * ANIMATION_SPEED_MS);
           }
+
+          let x = i+2;
+          if (x > animations.length){
+            this.enableDisable(i, ANIMATION_SPEED_MS);
+          }
+      }
+    }
+
+    enableDisable(x, speed){
+
+      setTimeout(() =>{
+        let x = document.getElementById("buttonsDiv");
+        if (x.style.display === "none") {
+          x.style.display = "block";
+        } else {
+          x.style.display = "none";
+        }
+      }, x * speed);
+      
     }
 
     // Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves
@@ -95,31 +115,31 @@ export class SortingVisualiser extends React.Component {
                   Animation Speed: <input type="number" id="anispeed" min="0" max="10"/>
                   <button class="button" onClick={() => GetValue()}>Set Speed</button>
                 </div>
+              
+                <div id="buttonsDiv">
+                  <button class="button-go" onClick={() => this.resetArray()}>New Array</button>
+                  <button class="button" onClick={() => {
+                      this.mergeSort();
+                      updateInfomation(mergeSortInfomation());
+                      }}>Merge Sort</button>
+                  
+                  <button class="button" onClick={() => {
+                      this.quickSort();
+                      updateInfomation(quickSortInfomation());
+                      }}>Quick Sort</button>
+                  
+                  <button class="button" onClick={() => {
+                      this.bubbleSort();
+                      updateInfomation(bubbleSortInfomation());
+                      }}>Bubble Sort</button>
 
+                  <button class="button" onClick={() => {
+                      this.heapSort();
+                      updateInfomation(heapSortInfomation());
+                      }}>Heap Sort</button>
+                </div>
                 <div>
-                <button class="button" onClick={() => this.resetArray()}>New Array</button>
-                
-                <button class="button" onClick={() => {
-                    this.mergeSort();
-                    updateInfomation(mergeSortInfomation());
-                    }}>Merge Sort</button>
-                
-                <button class="button" onClick={() => {
-                    this.quickSort();
-                    updateInfomation(quickSortInfomation());
-                    }}>Quick Sort</button>
-                
-                <button class="button" onClick={() => {
-                    this.bubbleSort();
-                    updateInfomation(bubbleSortInfomation());
-                    }}>Bubble Sort</button>
-
-                <button class="button" onClick={() => {
-                    this.heapSort();
-                    updateInfomation(heapSortInfomation());
-                    }}>Heap Sort</button>
-
-                <button class="button-stop" onClick={() => window.location.reload()}>Stop Animation</button>
+                  <button class="button-stop" onClick={() => window.location.reload()}>Stop Animation</button>
                 </div>
                 
                 <div class="algo-infomation" id="info">
@@ -185,7 +205,7 @@ export class SortingVisualiser extends React.Component {
     return dictionaryOfInfo;
   }
   function GetValue(){
-    if (document.getElementById('anispeed').value == ""){
+    if (document.getElementById('anispeed').value === ""){
       ANIMATION_SPEED_MS = 1;
     }
     else{
