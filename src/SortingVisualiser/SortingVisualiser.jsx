@@ -147,7 +147,6 @@ export class SortingVisualiser extends React.Component {
                     <h3 class="description"></h3>
                     <h3 class="complexitiy"></h3>
                 </div>
-                
             </div>
         );
     }
